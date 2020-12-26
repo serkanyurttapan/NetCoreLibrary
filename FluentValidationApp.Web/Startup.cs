@@ -30,7 +30,6 @@ namespace FluentValidationApp.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(Startup));
 
             //add - migration Add_Prop_BirthDay
             //update-database
@@ -39,7 +38,7 @@ namespace FluentValidationApp.Web
                 options.UseSqlServer(Configuration["ConStr"]);
             });
 
-            //þaðýdaki ifade ile birlikte fluent  den dönen hata mesajýný custom hale getiriyoruz.
+            //aþaðýdaki ifade ile birlikte fluent  den dönen hata mesajýný custom hale getiriyoruz.
             services.Configure<ApiBehaviorOptions>(options=>
             {
                 options.SuppressModelStateInvalidFilter = true;
@@ -51,11 +50,10 @@ namespace FluentValidationApp.Web
             {
                 options.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
+             
+            //AutoMapper add
+            services.AddAutoMapper(typeof(Startup));
 
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

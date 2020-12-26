@@ -1,10 +1,10 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
+using FluentValidationApp.Web.DTOs;
 using FluentValidationApp.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,15 +16,27 @@ namespace FluentValidationApp.Web.Controllers
     public class CustomerApiController : ControllerBase
     {
         readonly IValidator<Customer> _validator;
-        public CustomerApiController(IValidator<Customer> validator)
+        readonly IMapper _mapper;
+        public CustomerApiController(
+            IValidator<Customer> validator,
+            IMapper mapper
+            )
         {
+            _mapper = mapper;
             _validator = validator;
         }
         // GET: api/<CustomerApiController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult  Get()
         {
-            return new string[] { "value1", "value2" };
+            Customer customer = new Customer()
+            {
+                Age = 2,
+                BirthDay = new DateTime()
+            };
+            var  customerDtos= _mapper.Map<CustomerDto>(customer);
+            return Ok(customerDtos);
+            
         }
 
         // GET api/<CustomerApiController>/5
