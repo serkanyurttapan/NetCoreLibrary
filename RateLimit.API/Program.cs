@@ -1,13 +1,13 @@
+using AspNetCoreRateLimit;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
-using AspNetCoreRateLimit;
 
 namespace RateLimit.API
 {
@@ -15,13 +15,10 @@ namespace RateLimit.API
     {
         public static void Main(string[] args)
         {
-            var webhost = CreateHostBuilder(args).Build();
-
-            //var IpPolicy = webhost.Services.GetRequiredService<IIpPolicyStore>();
-
-            //IpPolicy.SeedAsync().Wait();
-
-            webhost.Run();
+          var webHost = CreateHostBuilder(args).Build();
+            var IpPolicy = webHost.Services.GetRequiredService<IIpPolicyStore>();
+            IpPolicy.SeedAsync().Wait();
+            webHost.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

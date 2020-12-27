@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace RateLimit.API.Controllers
 {
@@ -11,9 +11,10 @@ namespace RateLimit.API.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        public IActionResult GetCategory()
+
+        public IActionResult GetAction()
         {
-            return Ok(new { Id = 1, Category = "Kırtasiye" });
+            return Ok(new { Id = 4, Category = "Kalem" });
         }
     }
 }
